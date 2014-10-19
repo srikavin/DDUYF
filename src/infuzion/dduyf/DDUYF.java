@@ -122,20 +122,20 @@ public class DDUYF extends JavaPlugin implements Listener
 
   private void addBlock(Player p)
   {
-    if (!this.blocks.containsKey(p.getUniqueId()))
-      this.blocks.put(p.getUniqueId(), Integer.valueOf(1));
-    else if (this.blocks.containsKey(p.getUniqueId()))
-      this.blocks.put(p.getUniqueId(), Integer.valueOf(((Integer)this.blocks.get(p.getUniqueId())).intValue() + 1));
+    if (!blocks.containsKey(p.getUniqueId()))
+      blocks.put(p.getUniqueId(), Integer.valueOf(1));
+    else if (blocks.containsKey(p.getUniqueId()))
+      blocks.put(p.getUniqueId(), blocks.get(p.getUniqueId()) + 1);
   }
 
   private void clearBlocks(Player p)
   {
-    this.blocks.put(p.getUniqueId(), Integer.valueOf(0));
+    blocks.put(p.getUniqueId(), Integer.valueOf(0));
   }
 
   private int getBlocks(Player p) {
-    if (this.blocks.containsKey(p.getUniqueId())) {
-      int returnu = ((Integer)this.blocks.get(p.getUniqueId())).intValue();
+    if (blocks.containsKey(p.getUniqueId())) {
+      int returnu = ((Integer)blocks.get(p.getUniqueId())).intValue();
       return returnu;
     }return 1;
   }
