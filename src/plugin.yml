@@ -1,0 +1,45 @@
+name: DDUYF
+author: Infuzion
+version: 1.1
+database: false
+website: http://forums.bukkit.org/threads/dont-dig-under-your-feet.315404/
+
+main: infuzion.dduyf.DDUYF
+description: Stops players from digging under their feet in a painful manner.
+
+commands:
+  DDUYF:
+    usage: /dduyf reload | /dduyf addgroup
+    description: Main Command in this plugin.
+  DDUYF reload:
+    description: Reloads this plugin.
+    permissions: DDUYF.reload
+    usage: /dduyf reload
+  DDUYF addGroup:
+    description: Adds a group to the config.
+    permissions: DDUYF.addGroup
+    usage: /dduyf addgroup [name]
+  DDUYF removeGroup:
+    description: Removes a group from the config.
+    permissions: DDUYF.removegroup
+    usage: /dduyf removegroup [name]
+permissions:
+  DDUYF.*: 
+    description: Gives access to all DDUYF commands
+    children:
+       DDUYF.access: true
+       DDUYF.reload: true
+       DDUYF.addgroup: true
+       DDUYF.removegroup: true
+  DDUYF.access:
+    description: Allows you to access the help screen of DDUYF.
+    default: op
+  DDUYF.reload:
+    description: Allows you to reload the configuration files for DDUYF.
+    default: op
+  DDUYF.addgroup:
+    description: Allows you to add a group to DDUYF's config
+    default: op
+  DDUYF.removegroup:
+    description: Allows you to remove a group from DDUYF's config.
+    default: op
