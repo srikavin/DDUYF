@@ -17,12 +17,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class DDUYF extends JavaPlugin
-  implements Listener
+public class DDUYF extends JavaPlugin implements Listener
 {
   Logger ConsoleLogger = Bukkit.getLogger();
   File Messagesfile;
@@ -179,16 +179,18 @@ public class DDUYF extends JavaPlugin
     }
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.MONITOR)
   public void onBlockBreak(BlockBreakEvent e) {
-    Block b = e.getBlock();
-    Player p = e.getPlayer();
-    Location pl = p.getLocation();
-    Location bl = b.getLocation();
-    if ((pl.getBlockX() == bl.getBlockX()) && (pl.getBlockY() - 1 == bl.getBlockY()) && (pl.getBlockZ() == bl.getBlockZ()) && (permission(p))) {
-      addBlock(p);
-      damage(p, getBlocks(p));
-    }
+	  if(!e.isCancelled()){
+		  Block b = e.getBlock();
+		  Player p = e.getPlayer();
+		  Location pl = p.getLocation();
+		  Location bl = b.getLocation();
+		  if ((pl.getBlockX() == bl.getBlockX()) && (pl.getBlockY() - 1 == bl.getBlockY()) && (pl.getBlockZ() == bl.getBlockZ()) && (permission(p))) {
+			  addBlock(p);
+			  damage(p, getBlocks(p));
+		  }
+	  }
   }
 
   public boolean onCommand(CommandSender theSender, Command cmd, String commandLabel, String[] args) {
