@@ -3,6 +3,7 @@ package infuzion.dduyf;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -33,24 +34,24 @@ public class DDUYF extends JavaPlugin implements Listener
   {
     getServer().getPluginManager().registerEvents(this, this);
     initConfig();
-    this.Messagesfile = new File(getDataFolder(), "messages.yml");
-    this.messagesConfig = YamlConfiguration.loadConfiguration(this.Messagesfile);
+    Messagesfile = new File(getDataFolder(), "messages.yml");
+    messagesConfig = YamlConfiguration.loadConfiguration(Messagesfile);
     saveMessages();
   }
 
   private void initMessages() {
-    this.messagesConfig.addDefault("DDUYF.ReloadSuccess", "&aConfig Successfully Reloaded!");
-    this.messagesConfig.addDefault("DDUYF.RemoveDefault", "&4You cannot delete the default group!");
-    this.messagesConfig.addDefault("DDUYF.NoPermission", "&4You do not have permission for this command.");
-    this.messagesConfig.addDefault("DDUYF.AddGroup", "&aGroup Successfully added!");
-    this.messagesConfig.addDefault("DDUYF.RemoveGroupFailed", "&4The group \"%name%\" does not exist!");
-    this.messagesConfig.addDefault("DDUYF.RemoveGroupSuccess", "&aThe group has been successfully removed!");
-    this.messagesConfig.options().copyDefaults(true);
+    messagesConfig.addDefault("DDUYF.ReloadSuccess", "&aConfig Successfully Reloaded!");
+    messagesConfig.addDefault("DDUYF.RemoveDefault", "&4You cannot delete the default group!");
+    messagesConfig.addDefault("DDUYF.NoPermission", "&4You do not have permission for this command.");
+    messagesConfig.addDefault("DDUYF.AddGroup", "&aGroup Successfully added!");
+    messagesConfig.addDefault("DDUYF.RemoveGroupFailed", "&4The group \"%name%\" does not exist!");
+    messagesConfig.addDefault("DDUYF.RemoveGroupSuccess", "&aThe group has been successfully removed!");
+    messagesConfig.options().copyDefaults(true);
   }
 
   private void saveMessages() {
     initMessages();
-    try { messagesConfig.save(this.Messagesfile); } catch (Exception e) { e.printStackTrace(); }
+    try { messagesConfig.save(Messagesfile); } catch (Exception e) { e.printStackTrace(); }
   }
 
   private String getMessages(String message)
@@ -95,12 +96,12 @@ public class DDUYF extends JavaPlugin implements Listener
 
   private void removeGroup(String name, CommandSender sender) {
     FileConfiguration config = getConfig();
-    ArrayList<?> r = (ArrayList<?>)config.getStringList("DDUYF.Groups.Names");
+    List<String> groups = config.getStringList("DDUYF.Groups.Names");
     if (!name.equals("default"))
     {
-      if (r.contains(name)) {
-        r.remove(name);
-        config.set("DDUYF.Groups.Names", r);
+      if (groups.contains(name)) {
+        groups.remove(name);
+        config.set("DDUYF.Groups.Names", groups);
         sender.sendMessage(getMessages("DDUYF.RemoveGroupSuccess"));
       } else {
         sender.sendMessage(getMessages("DDUYF.RemoveGroupFailed").replace("%name%", name));
@@ -113,7 +114,7 @@ public class DDUYF extends JavaPlugin implements Listener
   }
 
   private boolean permission(Player p) {
-    Boolean useperm = (Boolean)getConfig().get("DDUYF.UsePermissions");
+    Boolean useperm = getConfig().getBoolean("DDUYF.UsePermissions");
     if ((!p.hasPermission("DDUYF.exempt")) && (useperm.booleanValue())) {
       return false;
     }
@@ -135,7 +136,7 @@ public class DDUYF extends JavaPlugin implements Listener
 
   private int getBlocks(Player p) {
     if (blocks.containsKey(p.getUniqueId())) {
-      int returnu = ((Integer)blocks.get(p.getUniqueId())).intValue();
+      int returnu = (blocks.get(p.getUniqueId())).intValue();
       return returnu;
     }return 1;
   }
