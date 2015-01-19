@@ -14,6 +14,10 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#IntelliJ Idea Files
+.idea/*
+*.iml
+
 # =========================
 # Operating System Files
 # =========================
