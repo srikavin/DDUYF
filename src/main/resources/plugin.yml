@@ -9,7 +9,7 @@ description: Stops players from digging under their feet in a painful manner.
 
 commands:
   DDUYF:
-    usage: /dduyf reload | /dduyf addgroup
+    usage: /dduyf | /dduyf reload | /dduyf addgroup | /dduyf removegroup
     description: Main Command in this plugin.
   DDUYF reload:
     description: Reloads this plugin.
@@ -42,4 +42,7 @@ permissions:
     default: op
   DDUYF.removegroup:
     description: Allows you to remove a group from DDUYF's config.
+    default: op
+  DDUYF.exempt:
+    description: Exempts the player from the plugin
     default: op
